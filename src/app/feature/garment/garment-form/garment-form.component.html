@@ -1,0 +1,62 @@
+<section class="form-section">
+  <h2>Nueva Prenda</h2>
+  <form [formGroup]="garmentForm" (ngSubmit)="onSubmit()">
+    <input 
+      type="text" 
+      placeholder="Nombre" 
+      formControlName="name" 
+      [class.invalid]="esInvalido('name')" 
+      />
+    <span *ngIf="esInvalido('name')">El nombre es requerido.</span>
+
+    <select formControlName="size" [class.invalid]="esInvalido('size')">
+      <option disabled class="seleccionarTalla" value="">Seleccione una talla</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
+    <span *ngIf="esInvalido('size')">La talla es requerida (S, M, L o XL)</span>
+
+    <input 
+      type="text" 
+      placeholder="Color" 
+      formControlName="color" 
+      [class.invalid]="esInvalido('color')"
+      />
+    <span *ngIf="esInvalido('color')">El color es requerido</span>
+
+    <input 
+      type="number" 
+      placeholder="Precio unitario" 
+      formControlName="unitPrice"
+      [class.invalid]="esInvalido('unitPrice')" 
+      />
+    <span *ngIf="esInvalido('unitPrice')">El precio debe ser válido</span>
+
+    <input 
+      type="number" 
+      placeholder="Stock" 
+      formControlName="stock" 
+      [class.invalid]="esInvalido('stock')" 
+      />
+    <span *ngIf="esInvalido('stock')">El stock debe ser válido</span>
+    <!--
+    <select formControlName="state">
+      <option value="A">Activo</option>
+      <option value="I">Inactivo</option>
+    </select>
+
+    <input 
+      type="datetime-local"
+      formControlName="registerDate"
+      [class.invalid]="esInvalido('registerDate')"
+      />
+    <span *ngIf="esInvalido('registerDate')">La fecha de registro es requerida (debe ser menor a la fecha actual)</span>
+    -->
+    <div class="form-buttons">
+      <button type="submit" class="save-btn" [disabled]="garmentForm.invalid">Guardar Prenda</button>
+      <button type="button" class="clear-btn" (click)="clearForm()">Limpiar</button>
+    </div>
+  </form>
+</section>

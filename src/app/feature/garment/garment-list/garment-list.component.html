@@ -1,0 +1,64 @@
+<section class="table-section">
+  <div class="table-header">
+    <h2>Listado de Prendas</h2>
+    <div class="filters">
+      <input type="text" [(ngModel)]="busquedaNombre" placeholder="Buscar por nombre"/>
+
+      <!-- Aquí el select en lugar de los botones -->
+      <select [(ngModel)]="filtroEstado" class="filter-select">
+        <option value="T">Todos</option>
+        <option value="A">Activos</option>
+        <option value="I">Inactivos</option>
+      </select>
+
+      <button (click)="agregarPrenda()" class="btn-add">+ Nueva Prenda</button>
+      <button (click)="reportPdf()" class="btn-report">
+        <mat-icon>picture_as_pdf</mat-icon>Generar
+      </button>
+      <button (click)="reiniciar()" class="btn-reset">Reiniciar</button>
+    </div>
+  </div>
+
+  <table class="garment-table">
+    <thead>
+      <tr>
+        <th class="id-column">ID</th>
+        <th class="name-column">Nombre</th>
+        <th class="size-column">Talla</th>
+        <th class="color-column">Color</th>
+        <th class="price-column">Precio</th>
+        <th class="stock-column">Stock</th>
+        <th class="state-column">Estado</th>
+        <th class="register-column">Registro</th>
+        <th class="actions-column">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prenda of prendasFiltradas">
+        <td class="id-column">{{ prenda.id }}</td>
+        <td class="name-column">{{ prenda.name }}</td>
+        <td class="size-column">{{ prenda.garmentSize }}</td>
+        <td class="color-column">{{ prenda.color }}</td>
+        <td class="price-column">S/{{ prenda.suggestedPrice | number: '1.2-2' }}</td>
+        <td class="stock-column">{{ prenda.stock }}</td>
+        <td class="state-column">
+          <span class="estado" [ngClass]="prenda.state === 'A' ? 'activo' : 'inactivo'">
+            {{ prenda.state === 'A' ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td class="register-column">{{ prenda.registerDate | date:'dd/MM/yyyy - HH:mm' }}</td>
+        <td class="actions-column">
+          <button title="Editar" (click)="editar(prenda)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button title="Eliminar" (click)="eliminar(prenda.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button title="Restaurar" (click)="restaurar(prenda.id)">
+            <mat-icon>restore</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
